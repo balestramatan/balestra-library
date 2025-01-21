@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "./styles.css";
 
 interface AccordionProps<T> {
-  data: T[]; // `data` is now required
+  data: T[];
   renderTitle: (item: T) => React.ReactNode;
   renderContent: (item: T) => React.ReactNode;
-  getId: (item: T) => string; // Function to extract the `id` from the item
-  customClass?: string;
-  customStyle?: React.CSSProperties;
+  getId: (item: T) => string;
+  customWrapperClass?: string;
+  customItemClass?: string;
+  customTitleClass?: string;
+  customContentClass?: string;
+  customNoDataClass?: string;
+  customIconClass?: string;
 }
 
 const Accordion = <T,>({
@@ -15,8 +19,12 @@ const Accordion = <T,>({
   renderTitle,
   renderContent,
   getId,
-  customClass,
-  customStyle
+  customWrapperClass,
+  customItemClass,
+  customTitleClass,
+  customContentClass,
+  customNoDataClass,
+  customIconClass,
 }: AccordionProps<T>) => {
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -29,25 +37,35 @@ const Accordion = <T,>({
   };
 
   return (
-    <div className={`wrapper ${customClass}`} style={customStyle}>
+    <div className={`wrapper ${customWrapperClass}`}>
       <div className="accordion">
         {data && data.length > 0 ? (
           data.map((item) => {
             const id = getId(item);
+            const isVisible = selected.includes(id); // Determine if the item is visible
             return (
-              <div className="item" key={id}>
-                <div className="title" onClick={() => handleToggle(id)}>
+              <div className={`item ${customItemClass}`} key={id}>
+                <div
+                  className={`title ${customTitleClass}`}
+                  onClick={() => handleToggle(id)}
+                >
                   {renderTitle(item)}
-                  <span>{selected.includes(id) ? "-" : "+"}</span>
+                  <span className={`icon ${customIconClass}`}>
+                    {isVisible ? "-" : "+"}
+                  </span>
                 </div>
-                {selected.includes(id) && (
+                <div
+                  className={`content-wrapper ${
+                    isVisible ? "visible" : ""
+                  } ${customContentClass}`}
+                >
                   <div className="content">{renderContent(item)}</div>
-                )}
+                </div>
               </div>
             );
           })
         ) : (
-          <div>No data found!</div>
+          <div className={`no-data ${customNoDataClass}`}>No data found!</div>
         )}
       </div>
     </div>
