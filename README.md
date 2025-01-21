@@ -27,7 +27,7 @@ yarn add balestra-reusable-components
 
 ### Accordion Component
 
-The `Accordion` component provides a simple collapsible interface for displaying content in sections.
+The `Accordion` component provides a simple collapsible interface for displaying content in sections. It supports dynamic rendering for any type of data.
 
 #### Example
 
@@ -35,16 +35,21 @@ The `Accordion` component provides a simple collapsible interface for displaying
 import React from "react";
 import { Accordion } from "balestra-reusable-components";
 
-const App = () => {
-  const data = [
-    { id: "1", title: "What is React?", content: "A JavaScript library for building UIs." },
-    { id: "2", title: "What is Vite?", content: "A fast build tool for modern web projects." },
-  ];
+const data = [
+  { id: "1", title: "What is React?", content: "A JavaScript library for building UIs." },
+  { id: "2", title: "What is Vite?", content: "A fast build tool for modern web projects." },
+];
 
+const App = () => {
   return (
     <div>
-      <h1>Accordion Example</h1>
-      <Accordion data={data} />
+      <h1>Dynamic Accordion Example</h1>
+      <Accordion
+        data={data}
+        getId={(item) => item.id}
+        renderTitle={(item) => <h3>{item.title}</h3>}
+        renderContent={(item) => <p>{item.content}</p>}
+      />
     </div>
   );
 };
@@ -54,11 +59,12 @@ export default App;
 
 #### Props
 
-| Prop          | Type             | Description                              |
-|---------------|------------------|------------------------------------------|
-| `data`        | `Array<Object>`  | Array of items, each containing `id`, `title`, and `content`. |
-| `customStyle` | `CSSProperties`  | Optional custom styles for the wrapper.  |
-| `customClass` | `string`         | Optional CSS class for additional styling. |
+| Prop            | Type                 | Description                                                                         |
+|------------------|----------------------|-------------------------------------------------------------------------------------|
+| `data`          | `Array<any>`         | Required. An array of items to display in the accordion. Each item must have an `id`. |
+| `getId`         | `(item: any) => string` | Required. A function to extract the `id` from each item.                            |
+| `renderTitle`   | `(item: any) => ReactNode` | Required. A function to define how the title of each item is rendered.             |
+| `renderContent` | `(item: any) => ReactNode` | Required. A function to define how the content of each item is rendered.           |
 
 #### Example Data Format
 
