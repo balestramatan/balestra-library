@@ -1,27 +1,28 @@
 import React, { useState } from "react";
-import './styles.css';
+import "./styles.css";
 
-import mockData from './data';
-
-interface AccordionItem {
-    id: string;
-    question: string;
-    answer: string;
-}
-  
-interface AccordionProps {
-    data: AccordionItem[];
-    customStyle?: React.CSSProperties;
-    customClass?: string;
+interface AccordionProps<T> {
+  data: T[]; // `data` is now required
+  renderTitle: (item: T) => React.ReactNode;
+  renderContent: (item: T) => React.ReactNode;
+  getId: (item: T) => string; // Function to extract the `id` from the item
+  customClass?: string;
+  customStyle?: React.CSSProperties;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ data, customStyle, customClass }) => {
+const Accordion = <T,>({
+  data,
+  renderTitle,
+  renderContent,
+  getId,
+  customClass,
+  customStyle
+}: AccordionProps<T>) => {
   const [selected, setSelected] = useState<string[]>([]);
 
-  const handleSingleSelection = (itemId: string) => {
-    if (selected?.includes(itemId)) {
-      const filtered = selected.filter((item) => item !== itemId);
-      setSelected(filtered);
+  const handleToggle = (itemId: string) => {
+    if (selected.includes(itemId)) {
+      setSelected(selected.filter((id) => id !== itemId));
     } else {
       setSelected([...selected, itemId]);
     }
@@ -30,25 +31,23 @@ const Accordion: React.FC<AccordionProps> = ({ data, customStyle, customClass })
   return (
     <div className={`wrapper ${customClass}`} style={customStyle}>
       <div className="accordion">
-        {mockData && mockData.length > 0 ? (
-            mockData.map((dataItem) => (
-              <div className="item">
-                <div
-                  className="title"
-                  onClick={() => handleSingleSelection(dataItem.id)}
-                >
-                  <h3>{dataItem.title}</h3>
-                  <span>{selected.includes(dataItem.id) ? "-" : "+"}</span>
+        {data && data.length > 0 ? (
+          data.map((item) => {
+            const id = getId(item);
+            return (
+              <div className="item" key={id}>
+                <div className="title" onClick={() => handleToggle(id)}>
+                  {renderTitle(item)}
+                  <span>{selected.includes(id) ? "-" : "+"}</span>
                 </div>
-                {selected.includes(dataItem.id) && (
-                  <div className="content">
-                    <p>{dataItem.content}</p>
-                  </div>
+                {selected.includes(id) && (
+                  <div className="content">{renderContent(item)}</div>
                 )}
               </div>
-            ))
+            );
+          })
         ) : (
-          <div className={`wrapper ${customClass}`} style={customStyle}>No data found !</div>
+          <div>No data found!</div>
         )}
       </div>
     </div>

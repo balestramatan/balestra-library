@@ -1,6 +1,6 @@
 {
   "name": "balestra-reusable-components",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "A simple library for reusable React components.",
   "main": "dist/balestra-library.cjs.js",
   "module": "dist/balestra-library.es.js",
@@ -16,7 +16,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "balestra-react-simple-accordion": "^0.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

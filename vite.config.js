@@ -5,7 +5,7 @@ import path from "path";
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"), // Entry point
+      entry: path.resolve(__dirname, "src/"), // Entry point
       name: "BalestraLibrary",
       fileName: (format) => `balestra-library.${format}.js`,
     },
