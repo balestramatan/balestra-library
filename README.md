@@ -1,6 +1,6 @@
 # Balestra Reusable Components
 
-**Balestra Reusable Components** is a lightweight React library offering simple, reusable components to speed up development and provide consistent UI features across your projects. Whether you need an accordion, image slider, or other utilities, this library provides a solid foundation for your React applications.
+**Balestra Reusable Components** is a lightweight React library offering simple, reusable components to speed up development and provide consistent UI features across your projects. Whether you need an accordion, star rating, image slider, or other utilities, this library provides a solid foundation for your React applications.
 
 ## Features
 
@@ -74,6 +74,60 @@ const data = [
   { id: "2", title: "What is Vite?", content: "A fast build tool for modern web projects." },
 ];
 ```
+
+### Star Rating Component
+
+The `StarRating` component allows users to rate items using a customizable star-based rating system.
+
+#### Example
+
+```tsx
+import React from "react";
+import { StarRating } from "balestra-reusable-components";
+
+const App = () => {
+  const handleRate = (rating: number) => {
+    console.log(`Rated: ${rating} stars`);
+  };
+
+  const handleHover = (hoverRating: number) => {
+    console.log(`Hovering over: ${hoverRating} stars`);
+  };
+
+  const handleHoverLeave = () => {
+    console.log("Stopped hovering");
+  };
+
+  return (
+    <div>
+      <h1>Star Rating Example</h1>
+      <StarRating
+        numberOfStars={5}
+        size={50}
+        defaultColor="#ccc"
+        highlighColor="#f39c12"
+        onRate={handleRate}
+        onHover={handleHover}
+        onHoverLeave={handleHoverLeave}
+      />
+    </div>
+  );
+};
+
+export default App;
+```
+
+#### Props
+
+| Prop             | Type                  | Default      | Description                                                                           |
+|-------------------|-----------------------|--------------|---------------------------------------------------------------------------------------|
+| `numberOfStars`   | `number`             | `10`         | The total number of stars to display.                                                 |
+| `size`           | `number`             | `40`         | The size of each star in pixels.                                                     |
+| `defaultColor`    | `string`             | `#e4e5e9`    | The color of the stars when they are not highlighted.                                |
+| `highlighColor`   | `string`             | `#ffc107`    | The color of the stars when they are highlighted.                                    |
+| `onRate`          | `(rating: number) => void` | `undefined`  | Callback function triggered when a star is clicked.                                  |
+| `onHover`         | `(hoverRating: number) => void` | `undefined` | Callback function triggered when a star is hovered over.                             |
+| `onHoverLeave`    | `() => void`         | `undefined`  | Callback function triggered when the mouse leaves the star area.                     |
 
 ## Contributing
 
