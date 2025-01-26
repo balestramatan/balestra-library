@@ -77,39 +77,34 @@ const data = [
 
 ### Star Rating Component
 
-The `StarRating` component allows users to rate items using a customizable star-based rating system.
+The `StarRating` component allows users to rate items using a customizable star-based rating system. It supports both internal state management and controlled state from a parent component.
 
 #### Example
 
 ```tsx
-import React from "react";
+import React, { useState } from "react";
 import { StarRating } from "balestra-reusable-components";
 
 const App = () => {
-  const handleRate = (rating: number) => {
-    console.log(`Rated: ${rating} stars`);
-  };
+  const [rating, setRating] = useState(3); // Controlled state
 
-  const handleHover = (hoverRating: number) => {
-    console.log(`Hovering over: ${hoverRating} stars`);
-  };
-
-  const handleHoverLeave = () => {
-    console.log("Stopped hovering");
+  const handleRate = (newRating: number) => {
+    console.log(`Rated: ${newRating}`);
+    setRating(newRating); // Update state when the user clicks a star
   };
 
   return (
     <div>
-      <h1>Star Rating Example</h1>
-      <StarRating
-        numberOfStars={5}
-        size={50}
-        defaultColor="#ccc"
-        highlighColor="#f39c12"
-        onRate={handleRate}
-        onHover={handleHover}
-        onHoverLeave={handleHoverLeave}
+      <h1>Controlled Star Rating</h1>
+      <StarRating 
+        rate={rating} 
+        onRate={handleRate} 
+        numberOfStars={5} 
+        size={30} 
       />
+
+      <h1>Uncontrolled Star Rating</h1>
+      <StarRating numberOfStars={5} size={30} />
     </div>
   );
 };
@@ -125,6 +120,7 @@ export default App;
 | `size`           | `number`             | `40`         | The size of each star in pixels.                                                     |
 | `defaultColor`    | `string`             | `#e4e5e9`    | The color of the stars when they are not highlighted.                                |
 | `highlighColor`   | `string`             | `#ffc107`    | The color of the stars when they are highlighted.                                    |
+| `rate`           | `number`             | `undefined`  | The current rating value (for controlled components).                                |
 | `onRate`          | `(rating: number) => void` | `undefined`  | Callback function triggered when a star is clicked.                                  |
 | `onHover`         | `(hoverRating: number) => void` | `undefined` | Callback function triggered when a star is hovered over.                             |
 | `onHoverLeave`    | `() => void`         | `undefined`  | Callback function triggered when the mouse leaves the star area.                     |

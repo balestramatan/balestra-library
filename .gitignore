@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 playground
+publish_to_npm.sh
+push_to_git.sh
 dist
 dist-ssr
 *.local
