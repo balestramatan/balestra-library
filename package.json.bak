@@ -1,6 +1,6 @@
 {
   "name": "balestra-reusable-components",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A simple library for reusable React components.",
   "main": "dist/balestra-library.cjs.js",
   "module": "dist/balestra-library.es.js",

@@ -1,0 +1,60 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    height: auto;
+    overflow: hidden;
+}
+
+.current-image {
+    border-radius: 0.5rem;
+    width: 100%;
+    height: auto;
+}
+
+.arrow {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    color: white;
+    filter: drop-shadow(0 0 5px #555);
+    cursor: pointer;
+}
+
+.arrow-left {
+    left: 1rem;
+}
+
+.arrow-right {
+    right: 1rem;
+}
+
+.circle-indicators {
+    position: absolute;
+    display: flex;
+    bottom: 1rem;
+}
+
+.current-indicator {
+    background-color: white;
+    height: 15px;
+    width: 25px;
+    border: none;
+    outline: none;
+    margin: 0 0.2rem;
+    cursor: pointer;
+}
+
+.hide-current-image {
+    display: none;
+}
+
+.current-indicator:hover {
+    background-color: white;
+}
+
+.inactive-indicator {
+    background-color: gray;
+}

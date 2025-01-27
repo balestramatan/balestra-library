@@ -97,7 +97,7 @@ const App = () => {
     <div>
       <h1>Controlled Star Rating</h1>
       <StarRating 
-        rate={rating} 
+        value={rating} 
         onRate={handleRate} 
         numberOfStars={5} 
         size={30} 
@@ -120,10 +120,48 @@ export default App;
 | `size`           | `number`             | `40`         | The size of each star in pixels.                                                     |
 | `defaultColor`    | `string`             | `#e4e5e9`    | The color of the stars when they are not highlighted.                                |
 | `highlighColor`   | `string`             | `#ffc107`    | The color of the stars when they are highlighted.                                    |
-| `rate`           | `number`             | `undefined`  | The current rating value (for controlled components).                                |
+| `value`           | `number`             | `undefined`  | The current rating value (for controlled components).                                |
 | `onRate`          | `(rating: number) => void` | `undefined`  | Callback function triggered when a star is clicked.                                  |
 | `onHover`         | `(hoverRating: number) => void` | `undefined` | Callback function triggered when a star is hovered over.                             |
 | `onHoverLeave`    | `() => void`         | `undefined`  | Callback function triggered when the mouse leaves the star area.                     |
+
+### Image Slider Component
+
+The `ImageSlider` component allows you to display a set of images as a slider with navigation buttons and indicators. It supports fetching images dynamically.
+
+#### Example
+
+```tsx
+import React from "react";
+import { ImageSlider } from "balestra-reusable-components";
+
+const App = () => {
+  return (
+    <div>
+      <h1>Image Slider Example</h1>
+      <ImageSlider 
+        url="https://api.example.com/images" 
+        page={1} 
+        limit={5} 
+        loadingComponent={<div>Loading...</div>} 
+        errorComponent={<div>Error loading images.</div>} 
+      />
+    </div>
+  );
+};
+
+export default App;
+```
+
+#### Props
+
+| Prop               | Type                  | Default           | Description                                                                             |
+|---------------------|-----------------------|-------------------|-----------------------------------------------------------------------------------------|
+| `url`              | `string`             | `undefined`       | Required. API URL to fetch images.                                                     |
+| `page`             | `number`             | `1`               | The page number for paginated image fetching.                                          |
+| `limit`            | `number`             | `undefined`       | The number of images to fetch per page.                                               |
+| `loadingComponent` | `React.ReactNode`    | `"Loading..."`    | Component to display while images are loading.                                         |
+| `errorComponent`   | `React.ReactNode`    | `"Error!"`        | Component to display if an error occurs during image fetching.                         |
 
 ## Contributing
 
